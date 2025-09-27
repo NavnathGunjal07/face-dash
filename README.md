@@ -30,7 +30,6 @@ A scalable real-time face detection system with a React frontend and Node.js bac
 │   ├── prisma/               # Database schema and migrations
 │   └── generated/            # Generated Prisma client
 │
-├── .github/                  # GitHub configurations
 ├── package.json             # Root package.json
 ├── turbo.json              # Turborepo configuration
 └── .env                    # Environment variables
