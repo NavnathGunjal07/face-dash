@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  username  String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  cameras   Camera[]
+}
+
+model Camera {
+  id        String          @id @default(uuid())
+  userId    String
+  name      String
+  rtspUrl   String
+  location  String?
+  enabled   Boolean         @default(true)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  user      User            @relation(fields: [userId], references: [id])
+  alerts    Alert[]
+  settings  CameraSetting?
+}
+
+model Alert {
+  id          String   @id @default(uuid())
+  cameraId    String
+  detectedAt  DateTime @default(now())
+  description String?
+  snapshotUrl String?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  camera      Camera   @relation(fields: [cameraId], references: [id])
+}
+
+model CameraSetting {
+  id            String   @id @default(uuid())
+  cameraId      String   @unique
+  faceDetection Boolean  @default(true)
+  fps           Int      @default(30)
+  updatedAt     DateTime @updatedAt
+
+  camera        Camera   @relation(fields: [cameraId], references: [id])
+}
