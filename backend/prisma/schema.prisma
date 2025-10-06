@@ -4,6 +4,7 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
+  binaryTargets = ["native", "windows", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -28,6 +29,7 @@ model Camera {
   rtspUrl   String
   location  String?
   enabled   Boolean         @default(true)
+  isActive   Boolean         @default(true)
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
 
@@ -40,6 +42,7 @@ model Alert {
   id          String   @id @default(uuid())
   cameraId    String
   detectedAt  DateTime @default(now())
+  detectedFaces Int @default(0)
   description String?
   snapshotUrl String?
   metadata    Json?

@@ -1,0 +1,119 @@
+# Root level .dockerignore for Real-Time Multi-Camera Face Detection Dashboard
+
+# Docker and compose files
+docker-compose.yml
+docker-compose.*.yml
+Dockerfile*
+.dockerignore
+
+# Environment files
+.env
+.env.*
+config.env
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+SETUP.md
+*.md
+docs/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Build artifacts
+build/
+dist/
+bin/
+
+# Coverage and test files
+coverage/
+*.lcov
+test/
+tests/
+*_test.*
+
+# Node.js (for backend)
+backend/node_modules/
+backend/npm-debug.log*
+backend/yarn-debug.log*
+backend/yarn-error.log*
+backend/pnpm-debug.log*
+backend/.npm
+backend/.eslintcache
+backend/.node_repl_history
+backend/*.tgz
+backend/.yarn-integrity
+backend/.cache
+backend/.parcel-cache
+backend/.nyc_output
+
+# Go (for worker)
+worker/*.exe
+worker/*.exe~
+worker/*.dll
+worker/*.so
+worker/*.dylib
+worker/*.test
+worker/*.out
+
+# Snapshots and media files
+snapshots/
+*.jpg
+*.png
+*.jpeg
+*.mp4
+*.avi
+*.mov
+
+# Configuration files
+mediamtx.yml
+config.yaml
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock

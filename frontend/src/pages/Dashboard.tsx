@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
+import { setCameras } from '../store/cameraSlice';
+import axios from '../api/axiosInstance';
 import AddCamera from '../components/camera/AddCamera';
+import CameraTile from '../components/camera/CameraTile';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const cameras = useSelector((state: RootState) => state.cameras.cameras);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -20,9 +24,18 @@ const Dashboard = () => {
       setUsername(userData.username);
     }
 
-    // Initial load simulation
-    const timer = setTimeout(() => setIsLoading(false), 1000);
-    return () => clearTimeout(timer);
+    const loadCameras = async () => {
+      try {
+        const { data } = await axios.get('/api/cameras');
+        dispatch(setCameras(data));
+      } catch (e: any) {
+        setError(e?.response?.data?.error || 'Failed to load cameras');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadCameras();
   }, []);
 
   const handleLogout = () => {
@@ -100,31 +113,7 @@ const Dashboard = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {cameras.map((camera) => (
-              <div
-                key={camera.id}
-                className="bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-700 hover:border-gray-600 transition-colors"
-              >
-                {/* Camera Preview Placeholder */}
-                <div className="aspect-video bg-gray-900 flex items-center justify-center">
-                  <div className="text-gray-600">Camera Feed</div>
-                </div>
-                
-                {/* Camera Info */}
-                <div className="p-4">
-                  <h3 className="text-lg font-medium text-gray-100">{camera.name}</h3>
-                  <p className="text-sm text-gray-400 mt-1">{camera.location}</p>
-                  <div className="flex items-center mt-4 space-x-2">
-                    <div 
-                      className={`w-2 h-2 rounded-full ${
-                        camera.rtspUrl ? 'bg-green-500' : 'bg-red-500'
-                      }`}
-                    />
-                    <span className="text-sm text-gray-400">
-                      {camera.rtspUrl ? 'Connected' : 'Not Connected'}
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <CameraTile key={camera.id} camera={camera} />
             ))}
           </div>
         )}

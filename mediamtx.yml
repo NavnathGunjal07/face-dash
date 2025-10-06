@@ -1,0 +1,37 @@
+# MediaMTX configuration for Skylark Labs project
+
+logLevel: info
+
+# Enable the API + web UI (http://<host>:9997)
+api: yes
+metrics: yes
+
+# Protocols
+rtsp: yes          # worker pushes RTSP streams here
+hls: yes           # HTTP Live Streaming (fallback, iOS/Safari)
+webrtc: yes        # WebRTC playback in browser
+
+# Ports
+rtspAddress: :8554       # RTSP server
+webrtcAddress: :8889     # WebRTC WebSocket signaling
+webrtcICEHostNAT1To1IPs: [ "auto" ]   # replace auto with public IP/domain if needed
+hlsAddress: :8888        # HLS server
+apiAddress: :9997        # API + web UI
+
+# Authentication (optional, can secure your streams)
+# Uncomment and edit if you want auth:
+# paths:
+#   all:
+#     publishUser: worker
+#     publishPass: workerpass
+#     readUser: frontend
+#     readPass: frontpass
+
+paths:
+  ~^.*$:  # Regex pattern to match any path
+    source: publisher
+    sourceOnDemand: no
+
+# WebRTC settings (important for browser streaming)
+webrtcICEServers:
+  - "stun:stun.l.google.com:19302"  # Google STUN server

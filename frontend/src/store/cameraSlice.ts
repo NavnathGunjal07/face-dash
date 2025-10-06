@@ -20,6 +20,9 @@ const cameraSlice = createSlice({
   name: 'cameras',
   initialState,
   reducers: {
+    setCameras(state, action: PayloadAction<Camera[]>) {
+      state.cameras = action.payload;
+    },
     addCamera(state, action: PayloadAction<Camera>) {
       state.cameras.push(action.payload);
     },
@@ -32,5 +35,5 @@ const cameraSlice = createSlice({
   },
 });
 
-export const { addCamera, removeCamera, updateCamera } = cameraSlice.actions;
+export const { setCameras, addCamera, removeCamera, updateCamera } = cameraSlice.actions;
 export default cameraSlice.reducer;

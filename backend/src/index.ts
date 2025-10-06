@@ -4,11 +4,15 @@ import { logger } from 'hono/logger';
 import { prettyJSON } from 'hono/pretty-json';
 import { timing } from 'hono/timing';
 import { serve } from '@hono/node-server';
+import { serveStatic } from 'hono/serve-static';
+import { config } from 'dotenv';
 import { prisma } from './lib/prisma';
 import { authMiddleware } from './middleware/auth';
 import authRoutes from './routes/auth';
 import cameraRoutes from './routes/camera';
-import alertRoutes from './routes/alert';
+
+// Load environment variables
+config();
 
 const app = new Hono();
 
@@ -39,10 +43,8 @@ app.onError((err: ApiError, c) => {
 app.route('/auth', authRoutes);
 app.use('/api/*', authMiddleware);
 app.route('/api/cameras', cameraRoutes);
-app.route('/api/alerts', alertRoutes);
+app.use('/snapshots/*', serveStatic({ root: './' } as any));
 
-// WebSocket placeholder for live alerts
-// TODO: Integrate ws server and broadcast alerts
 
 const port = process.env.PORT || 3000;
 
@@ -57,6 +59,7 @@ async function checkDatabaseConnection() {
   }
 }
 
+
 // Start server
 async function startServer() {
   await checkDatabaseConnection();
@@ -67,10 +70,9 @@ async function startServer() {
   }, (info) => {
     console.log(`🚀 Server started on port ${info.port}`);
     console.log(`🔗 Local: http://localhost:${info.port}`);
-    console.log('📝 Request logging enabled');
-    console.log('⏱️  Response timing enabled');
   });
 }
+
 
 startServer().catch((error) => {
   console.error('❌ Error starting server:', error);

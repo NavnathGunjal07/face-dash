@@ -1,0 +1,78 @@
+# Go build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Snapshots directory (will be mounted as volume)
+snapshots/
+*.jpg
+*.png
+*.jpeg
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Environment files
+.env
+.env.local
+.env.*.local
+config.env
+
+# Documentation
+README.md
+*.md
+docs/
+
+# Test files
+*_test.go
+test/
+tests/
+
+# Build directories
+build/
+bin/

@@ -1,0 +1,75 @@
+services:
+  # MediaMTX Streaming Server
+  mediamtx:
+    image: bluenviron/mediamtx:latest
+    ports:
+      - "8888:8888"   # HTTP
+      - "8889:8889"   # HTTPS
+      - "8554:8554"   # RTSP
+      - "1935:1935"   # RTMP
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml:ro
+    command: /mediamtx.yml
+    networks:
+      - mediamtx-net
+
+  # Backend API Server
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    env_file:
+      - config.env
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - WORKER_URL=http://localhost:8080
+    command: pnpm dev
+    networks:
+      - mediamtx-net
+
+  # Frontend Vite App
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    env_file:
+      - config.env
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    command: pnpm dev --host
+
+  # Go Worker Service
+  worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - config.env
+    volumes:
+      - ./worker:/app
+      - worker_snapshots:/app/snapshots
+    depends_on:
+      - backend
+      - mediamtx
+    command: go run main.go
+    networks:
+      - mediamtx-net
+
+volumes:
+  worker_snapshots:
+
+networks:
+  mediamtx-net:
+    driver: bridge

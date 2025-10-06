@@ -23,6 +23,9 @@ importers:
       axios:
         specifier: ^1.12.2
         version: 1.12.2
+      jsmpeg-player:
+        specifier: ^3.0.3
+        version: 3.0.3
       react:
         specifier: ^19.1.1
         version: 19.1.1
@@ -170,6 +173,12 @@ packages:
   '@babel/types@7.28.4':
     resolution: {integrity: sha512-bkFqkLhh3pMBUQQkpVgWDWq/lqzc2678eUyDlTBhRqhCHFguYYGM0Efga7tYk4TogG/3x0EEl66/OQ+WGbWB/Q==}
     engines: {node: '>=6.9.0'}
+
+  '@cycjimmy/awesome-js-funcs@1.1.1':
+    resolution: {integrity: sha512-3e9BFAW8SWZ69frWE9a/QkKWM1+rcqiDsVwr1e0eVqVt5Fet1JtpMD4A+reCb6PUBCvFiSVrHDtDyB+Rxoxm0Q==}
+
+  '@cycjimmy/sass-lib@0.1.0':
+    resolution: {integrity: sha512-Oli6KvYFIpvRxrD8ntfETMi+YtRQEgrZkFv6JPs9PING/B1kr8AhBNbcw9MklA2HapSX70/3dn3BmsVfLBzEjg==}
 
   '@esbuild/aix-ppc64@0.25.10':
     resolution: {integrity: sha512-0NFWnA+7l41irNuaSVlLfgNT12caWJVLzp5eAVhZ0z1qpxbockccEt3s+149rE64VUI3Ml2zt8Nv5JVc4QXTsw==}
@@ -1168,6 +1177,10 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
+  jsmpeg-player@3.0.3:
+    resolution: {integrity: sha512-23lQWpf9lWOVCibVevQRqRXKex++QTB/JPcJCdCGf3AzdcJVB7L4io5EXfST80RMOGt9p1dcAvJDOKhqOUYl+Q==}
+    deprecated: This package has been migrated to @cycjimmy/jsmpeg-player for scoped NPM package. Please switch to @cycjimmy/jsmpeg-player to stay up to date.
+
   json-buffer@3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
 
@@ -1734,6 +1747,10 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
+
+  '@cycjimmy/awesome-js-funcs@1.1.1': {}
+
+  '@cycjimmy/sass-lib@0.1.0': {}
 
   '@esbuild/aix-ppc64@0.25.10':
     optional: true
@@ -2641,6 +2658,11 @@ snapshots:
       argparse: 2.0.1
 
   jsesc@3.1.0: {}
+
+  jsmpeg-player@3.0.3:
+    dependencies:
+      '@cycjimmy/awesome-js-funcs': 1.1.1
+      '@cycjimmy/sass-lib': 0.1.0
 
   json-buffer@3.0.1: {}
 

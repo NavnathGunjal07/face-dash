@@ -1,0 +1,6 @@
+backend_url: "http://backend:3000"
+mediamtx_url: "http://mediamtx:8888"
+worker_port: 8080
+max_streams: 4
+face_cascade: "haarcascade_frontalface_default.xml"
+storage_path: "./snapshots"
